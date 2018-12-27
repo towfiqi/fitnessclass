@@ -84,7 +84,7 @@ public class ClassController {
 
 		 //Makes sure the Class is not already Full
 		if (aClass.getStudentCount() < maxStudent) {
-                        Booking.addBooking(booking);
+                        aClass.addBooking(booking);
 			return booking;
 		}
 		else {

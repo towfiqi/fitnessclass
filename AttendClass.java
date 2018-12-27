@@ -16,7 +16,8 @@ public class AttendClass {
     private Scanner input = new Scanner(System.in);
     private Booking foundBooking;
     private FitnessClass foundClass;
-    static Rating rating;
+    static Rating rating = new Rating();
+
     
     //ENTERING AND VALIDATING CUSTOMER DETAILS
 	private Booking bookingIDInput() {
@@ -29,7 +30,7 @@ public class AttendClass {
 		}
 		while(bookingID.isEmpty());
                 
-                foundBooking = Booking.searchBookingsByID(bookingID);
+                //foundBooking = Booking.searchBookingsByID(bookingID);
                 
                 if(foundBooking == null || foundBooking.getBookingID().isEmpty()){
                     do{
@@ -46,8 +47,8 @@ public class AttendClass {
 	}
         
         //SELECTING THE CLASS
-	private double ratingInput() {
-		double classRating = 0;
+	private int ratingInput() {
+		int classRating = 0;
 		
 		//Ensures a Name is entered.
 		do{
@@ -84,9 +85,15 @@ public class AttendClass {
 	}
         
         //Attend Class Method
-	 public  Booking attendClass(Booking foundBooking, double newRating, String newReview) {
-
-
+	 public  Booking attendClass(Booking foundBooking, int newRating, String newReview) {
+                
+                Review review = new Review(newRating, 2, newReview);
+                rating.setAvg(newRating);
+                //rating.setRevs(revs);
+                FitnessClass foundClass = foundBooking.getFitnessClass();
+                Review[] existingRevs = foundClass.getRating().getRevs();
+                //existingRevs.add(review);
+                foundClass.getRating().getRevs();
 		foundBooking.setStatus("changed");
                 
                 return foundBooking;

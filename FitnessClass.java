@@ -6,7 +6,7 @@
 package fitness.bookingapp;
 
 import java.text.DateFormat;
-import java.util.Date;
+import java.util.*;
 
 /**
  *
@@ -18,13 +18,18 @@ public class FitnessClass {
     private int count;
     private int cost;
     private Rating rating;
-	
+    
+    private ArrayList<Customer> students;
+    private  ArrayList<Booking> bookings;
+    
 	public FitnessClass(String name, int cost, DateFormat time ) {
 		this.setName(name);
                 this.setCost(cost);
                 this.setTime(time);
 		rating=new Rating();
-                this.addStudent();
+
+                this.bookings = new ArrayList<Booking>();
+                this.students = new ArrayList<Customer>();
 	}
 	
 	public FitnessClass(){
@@ -33,6 +38,43 @@ public class FitnessClass {
                 this.count = 0;
 
 	}
+        
+        public void addBooking (Booking boo) {
+            //FitnessClass booClass = boo.getFitnessClass();
+            Customer booCustomer = boo.getCust();
+            this.addStudent(booCustomer);
+            bookings.add(boo);
+        }
+        
+        public void removeBooking (Booking boo) {
+            //FitnessClass booClass = boo.getFitnessClass();
+            Customer booCustomer = boo.getCust();
+            this.removeStudent(booCustomer);
+            bookings.remove(boo);
+        }
+        
+        public void showAllBookings () {
+
+            for(int i = 0; i < bookings.size(); i ++){
+                Booking singleBooking = bookings.get(i);
+                System.out.println(singleBooking.toString());
+
+            }
+        }
+        
+                
+        public Booking searchBookingsByID (String providedID) {
+            
+            
+            for(Booking bk : bookings) { 
+                if(bk.getBookingID().equals(providedID)) { 
+                    //found it!
+                    return bk;
+                }
+            }
+
+            return null;
+        }
         
 	
 	public String getName()
@@ -64,18 +106,23 @@ public class FitnessClass {
 	}
         
         public int getStudentCount()
-	{
-		return this.count;
+	{   
+                int studentCount = 0;
+                if(!students.isEmpty() || students !=null){
+                    studentCount = students.size();
+                }
+		return studentCount;
 	}
 	
-	public void addStudent()
+	public void addStudent(Customer c)
 	{
-		this.count = this.count + 1;
+                students.add(c);
+
 	}
         
-        public void removeStudent()
+        public void removeStudent(Customer c)
 	{
-		this.count = this.count - 1;
+		students.remove(c);
 	}
 	
 	public Rating getRating()

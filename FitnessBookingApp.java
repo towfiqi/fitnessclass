@@ -55,7 +55,7 @@ public class FitnessBookingApp {
                 }
                 else if(selection == 3)
 		{
-                    Booking.showAllBookings();
+                   // Booking.showAllBookings();
     		}else{
                     System.out.println("Invalid number entered.");
                     menuSelection();
@@ -142,9 +142,13 @@ public class FitnessBookingApp {
         Booking Booking19 = new Booking(cust14, class17, "Card");
         Booking Booking20 = new Booking(cust13, class17, "Cash");
         
-        Booking.addBooking(Booking1);
-        Booking.addBooking(Booking2);
-        Booking.addBooking(Booking3);
+        class1.addBooking(Booking1);
+        class1.addBooking(Booking2);
+        class1.addBooking(Booking3);
+        
+        //class1.showAllBookings();
+        //System.out.println("Students in Class1: "+class1.getStudentCount());
+
 //        Booking.addBooking(Booking4);
 //        Booking.addBooking(Booking5);
 //        Booking.addBooking(Booking6);

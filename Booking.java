@@ -21,8 +21,7 @@ public class Booking {
         private String status;
         private String payment;
         //private static HashMap<String,Booking> bookings;
-        private static ArrayList<Booking> bookings;
-	
+        
 	public Booking(Customer newCustomer, FitnessClass theClass, String payMethod) {
 		cust.setName(newCustomer.getName());
 		fclass.setName(theClass.getName());
@@ -35,49 +34,18 @@ public class Booking {
                 this.setBookingID( newCustomer.getName() );
                 this.setPaymentMethod(payMethod);
                 
-                this.bookings = new ArrayList<Booking>();
                 
 	}
         
-        public static void addBooking (Booking boo) {
-            FitnessClass booClass = boo.getFitnessClass();
-            booClass.addStudent();
-            bookings.add(boo);
-        }
-        
-        public static void removeBooking (Booking boo) {
-            FitnessClass booClass = boo.getFitnessClass();
-            booClass.removeStudent();
-            bookings.remove(boo);
-        }
+
         
 //        public static void updateStatus (Booking boo, String status) {
 //
 //            int bookingIndex = bookings.indexOf(boo);
 //            bookings.get(bookingIndex).setStatus(status);
 //        }
-        
-        public static Booking searchBookingsByID (String providedID) {
-            
-            
-            for(Booking bk : bookings) { 
-                if(bk.getBookingID().equals(providedID)) { 
-                    //found it!
-                    return bk;
-                }
-            }
 
-            return null;
-        }
-        
-        public static void showAllBookings () {
 
-            for(int i = 0; i < bookings.size(); i ++){
-                Booking singleBooking = bookings.get(i);
-                System.out.println(singleBooking.toString());
-
-            }
-        }
 	
 	public Booking() {
 		cust.setName("");
@@ -132,7 +100,7 @@ public class Booking {
                            + "BOOKING Status: " +status+ "\n" 
                            + "CLASS BOOKING FOR: " +fclass.getName()+ ". Rating: (" +fclass.getRating()+ ")\n" 
                            + "CLASS TIME: " +fclass.getTime().format(new Date())+ "\n" 
-                           + "Students In Class: " +fclass.getStudentCount()+ "\n" 
+                           //+ "Students In Class: " +fclass.getStudentCount()+ "\n" 
 			   +"Customer Details: " +cust.getName()
 			   + "\nTOTAL COST: $" + decimalFormat.format(fclass.getCost())
 			   + "\n-------------------------------------------------------------------";

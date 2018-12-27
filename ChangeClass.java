@@ -14,12 +14,14 @@ public class ChangeClass {
     private Scanner input = new Scanner(System.in);
     private final int NUMBER_OF_CLASSES = 8;
     private FitnessClass[] classList = new FitnessClass[NUMBER_OF_CLASSES];
+    private FitnessClass selectedClass;
     private Booking foundBooking;
 
     //ENTERING AND VALIDATING CUSTOMER DETAILS
 	private Booking bookingIDInput() {
 		String bookingID = "";
 		
+                selectedClass.showAllBookings();
 		//Ensures an ID is entered.
 		do{
 			System.out.println("Enter your Booking ID: ");
@@ -27,7 +29,7 @@ public class ChangeClass {
 		}
 		while(bookingID.isEmpty());
                 
-                foundBooking = Booking.searchBookingsByID(bookingID);
+                foundBooking = selectedClass.searchBookingsByID(bookingID);
                 if(foundBooking == null || foundBooking.getBookingID().isEmpty()){
                     do{
                             System.out.println("Invalid ID. Enter correct Booking ID: ");
@@ -41,6 +43,26 @@ public class ChangeClass {
 	}
         
         //SELECTING THE CLASS
+	private FitnessClass selectOldClass() {	
+                System.out.println("Select Class");
+		for(int count = 0; count < NUMBER_OF_CLASSES; count++){
+			System.out.println((count + 1) + ". " + classList[count]);
+		}
+                
+		int selection = input.nextInt();
+                
+		if(selection > NUMBER_OF_CLASSES || selection <= 0 )
+		{
+			System.out.println("Invalid number entered.");
+			return classSelection();
+		}
+		selection -= 1;
+                selectedClass = classList[selection];
+		return classList[selection];
+		
+	}
+        
+                //SELECTING THE CLASS
 	private FitnessClass classSelection() {	
                 System.out.println("Which Class would you like to join?");
 		for(int count = 0; count < NUMBER_OF_CLASSES; count++){
@@ -60,7 +82,7 @@ public class ChangeClass {
 	}
         
         //Booking
-	 public  Booking changeClass(Booking foundBooking, FitnessClass newClass) {
+	 public  Booking changeClass(FitnessClass oldClass, Booking foundBooking, FitnessClass newClass) {
                  Customer foundCustomer = foundBooking.getCust();
                  //FitnessClass previousClass = foundBooking.getFitnessClass();
                  String paymentm = foundBooking.getPaymentMethod();
@@ -71,9 +93,10 @@ public class ChangeClass {
 		if (newClass.getStudentCount() < 20) {
                         //previousClass.removeStudent();
            
-                        Booking.removeBooking(foundBooking); //First Remove the old booking from The Bookings list
-                        Booking.addBooking(newBooking);  //Then add the new booking to The Bookings list
+                        oldClass.removeBooking(foundBooking); //First Remove the old booking from The Bookings list
+                        newClass.addBooking(newBooking);  //Then add the new booking to The Bookings list
                         newBooking.setStatus("changed");
+                        
                         System.out.println("Class Changed Successfuly! New Class Info:  \n");
 			return newBooking;
 		}
@@ -106,7 +129,7 @@ public class ChangeClass {
                 classList[6] = sun3;
                 classList[7] = sun4;
             
-            System.out.println(changeClass(bookingIDInput(), classSelection()));
+            System.out.println(changeClass(selectOldClass(), bookingIDInput(), classSelection()));
         
         }
 }
