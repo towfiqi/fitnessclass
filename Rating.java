@@ -5,45 +5,55 @@
  */
 package fitness.bookingapp;
 
+import java.util.*;
+
 /**
  *
  * @author Towfiqul Islam
  */
 public class Rating {
-	//G(0), P(12), M(16);
-	//private int age;
-	private Review[] revs;
+
+        private ArrayList<Review> reviews;
         private double avg;
 
     
         public Rating() {
-        this.revs = null;
-        this.avg = 0;
-    }
+            this.reviews = new ArrayList<Review>();
+            this.avg = 0;
+        }
 
         
-    public Review[] getRevs() {
-        return revs;
-    }
+        public ArrayList<Review> getRevs() {
+            return reviews;
+        }
 
-    public void setRevs(Review[] revs) {
-        this.revs = revs;
-    }
-
-    public double getAvg() {
-        return avg;
-    }
-
-    public void setAvg(double avg) {
-        this.avg = avg;
-    }
-
-    @Override
-    public String toString() {
-        return "Rating (avg) {" +  "avg=" + avg + '}';
-    }
-
-   
         
-        
+        public void setReview(Review rev){
+            reviews.add(rev);
+        }
+
+        public double getAvg() {
+            return avg;
+        }
+
+        public void setAvg() {
+            double newAvg = 0;
+            
+            if(reviews.size() > 0){
+            
+                for(int i = 0; i < reviews.size(); i ++){
+                    newAvg = newAvg + reviews.get(i).getScore();
+                }
+            
+                this.avg = newAvg / reviews.size();
+            }
+
+        }
+
+        @Override
+        public String toString() {
+            return "Rating (avg) {" +  "avg=" + avg + '}';
+        }
+
+     
 }

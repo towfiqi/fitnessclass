@@ -15,12 +15,9 @@ import java.util.*;
 public class FitnessClass {
     private String className;
     private DateFormat time;
-    private int count;
     private int cost;
     private Rating rating;
-    
-    private ArrayList<Customer> students;
-    private  ArrayList<Booking> bookings;
+    private ArrayList<Booking> bookings;
     
 	public FitnessClass(String name, int cost, DateFormat time ) {
 		this.setName(name);
@@ -29,37 +26,33 @@ public class FitnessClass {
 		rating=new Rating();
 
                 this.bookings = new ArrayList<Booking>();
-                this.students = new ArrayList<Customer>();
+
 	}
 	
 	public FitnessClass(){
 		this.className = "Unknown";
 		this.rating = new Rating();
-                this.count = 0;
 
 	}
         
         public void addBooking (Booking boo) {
-            //FitnessClass booClass = boo.getFitnessClass();
-            Customer booCustomer = boo.getCust();
-            this.addStudent(booCustomer);
+            
             bookings.add(boo);
         }
         
         public void removeBooking (Booking boo) {
-            //FitnessClass booClass = boo.getFitnessClass();
-            Customer booCustomer = boo.getCust();
-            this.removeStudent(booCustomer);
+
             bookings.remove(boo);
         }
         
         public void showAllBookings () {
-
+            System.out.println("====================ALL BOOKINGS=================");
             for(int i = 0; i < bookings.size(); i ++){
                 Booking singleBooking = bookings.get(i);
                 System.out.println(singleBooking.toString());
 
             }
+            System.out.println("====================ALL BOOKINGS END===============");
         }
         
                 
@@ -76,7 +69,12 @@ public class FitnessClass {
             return null;
         }
         
-	
+	public int getIncome()
+	{
+		return  this.bookings.size() * this.cost;
+	}
+
+        
 	public String getName()
 	{
 		return this.className;
@@ -108,22 +106,13 @@ public class FitnessClass {
         public int getStudentCount()
 	{   
                 int studentCount = 0;
-                if(!students.isEmpty() || students !=null){
-                    studentCount = students.size();
+                if(!this.bookings.isEmpty() || this.bookings !=null){
+                    studentCount = this.bookings.size();
                 }
+            
 		return studentCount;
 	}
-	
-	public void addStudent(Customer c)
-	{
-                students.add(c);
 
-	}
-        
-        public void removeStudent(Customer c)
-	{
-		students.remove(c);
-	}
 	
 	public Rating getRating()
 	{
@@ -137,6 +126,6 @@ public class FitnessClass {
 	
 	public String toString()
 	{
-		return this.className+"("+this.time.format(new Date())+")"+"[$"+this.cost+"]"+" ("+this.rating+")";
+		return this.className+"("+this.time.format(new Date())+")"+"[$"+this.cost+"]"+" ("+this.rating+")"+"Students: ("+bookings.size()+"/20)";
 	}
 }

@@ -16,7 +16,7 @@ public class Booking {
     
         private Customer cust = new Customer();
 	private FitnessClass fclass = new FitnessClass();
-        private Rating rate=new Rating();
+
         private String bookingID;
         private String status;
         private String payment;
@@ -37,20 +37,11 @@ public class Booking {
                 
 	}
         
-
         
-//        public static void updateStatus (Booking boo, String status) {
-//
-//            int bookingIndex = bookings.indexOf(boo);
-//            bookings.get(bookingIndex).setStatus(status);
-//        }
-
-
-	
 	public Booking() {
 		cust.setName("");
 		fclass.setName("");
-		fclass.setRating(rate);
+
                 this.status = "booked";
                 this.payment = "cash";
 	}

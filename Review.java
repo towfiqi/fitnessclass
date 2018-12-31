@@ -47,6 +47,12 @@ public class Review {
         this.comment = comment;
     }
     
-    
+    public String toString() {
+        return "-------------------------------------------------------------------\n"
+                +"Rating: ]" + score + "/5]\n"
+                +"Review: " + comment + ""
+                + "\n-------------------------------------------------------------------\n";
+    }
+
     
 }
